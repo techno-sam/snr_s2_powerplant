@@ -1,0 +1,7 @@
+print("Automatic powerplant management service")
+print("\nA bundled wire should be connected to the front")
+print("On that bundled wire should be:")
+print(" - an orange wire connected to the fuel shutoff")
+print(" - a red wire connected to the load shutoff")
+print("Additionally, accumulators should be connected for monitoring")
+shell.run("/powerplant")
