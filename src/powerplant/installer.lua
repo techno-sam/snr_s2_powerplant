@@ -25,6 +25,11 @@ local function uninstall(path, tbl)
     end
 end
 
+if ... == "clean_install" then
+    shell.run("rm *")
+    shell.run("wget run https://raw.githubusercontent.com/techno-sam/snr_s2_powerplant/main/src/powerplant/installer.lua")
+end
+
 if ... == "update" then
     uninstall("/", fs_idx)
     shell.run("wget run https://raw.githubusercontent.com/techno-sam/snr_s2_powerplant/main/src/powerplant/installer.lua")
