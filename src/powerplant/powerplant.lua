@@ -15,7 +15,7 @@ local function are_any_below(percent)
 end
 
 local function are_all_above(percent)
-    return ~are_any_below(percent)
+    return not are_any_below(percent)
 end
 
 local function state_str()
