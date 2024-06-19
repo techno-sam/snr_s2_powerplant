@@ -2,8 +2,8 @@ print("\n\n")
 
 local MOTOR = "back"               -- side where electric start motor is connected
 local BUNDLE = "front"             -- side where bundled wire is connected
-local FUEL_SHUTOFF = colors.orange -- steam engine fuel supply
-local LOAD_SHUTOFF = colors.red    -- accumulators
+local FUEL_SHUTOFF = colors.red    -- steam engine fuel supply
+local LOAD_SHUTOFF = colors.orange -- accumulators
 
 -- bundled wire target state
 local sided_bundle_state = {}
