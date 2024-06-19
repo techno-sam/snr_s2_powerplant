@@ -158,11 +158,11 @@ local function step()
         load_failed = false
         shutdown_powerplant()
     elseif is_running then
-        if are_all_above(0.80) then
+        if are_all_above(0.90) then
             shutdown_powerplant()
         end
     else
-        if are_any_below(0.25) then
+        if are_any_below(0.50) then
             start_powerplant()
         end
     end
