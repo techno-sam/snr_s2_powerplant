@@ -4,6 +4,7 @@ local MOTOR = "back"               -- side where electric start motor is connect
 local BUNDLE = "front"             -- side where bundled wire is connected
 local FUEL_SHUTOFF = colors.red    -- steam engine fuel supply
 local LOAD_SHUTOFF = colors.orange -- accumulators
+local FUEL_REMOVAL = colors.lime   -- steam engine fuel drain (power on to drain)
 
 -- bundled wire target state
 local sided_bundle_state = {}
@@ -116,6 +117,10 @@ local function shutdown_powerplant()
     print(" - Disabling fuel")
     setBundledColor(BUNDLE, FUEL_SHUTOFF, true)
 
+    -- drain fuel
+    print(" - Enabling fuel drain")
+    setBundledColor(BUNDLE, FUEL_REMOVAL, true)
+
     set_state(false)
 end
 
@@ -125,6 +130,10 @@ local function start_powerplant()
     -- disable accumulators
     print(" - Disabling accumulators")
     setBundledColor(BUNDLE, LOAD_SHUTOFF, true)
+
+    -- prevent fuel drain
+    print(" - Disabling fuel drain")
+    setBundledColor(BUNDLE, FUEL_REMOVAL, false)
 
     -- enable fuel
     print(" - Enabling fuel")
