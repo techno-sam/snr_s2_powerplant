@@ -5,6 +5,9 @@ local BUNDLE = "front"             -- side where bundled wire is connected
 local FUEL_SHUTOFF = colors.orange -- steam engine fuel supply
 local LOAD_SHUTOFF = colors.red    -- accumulators
 
+-- bundled wire target state
+local sided_bundle_state = {}
+
 local is_running = true
 local load_failed = false
 
@@ -50,13 +53,14 @@ end
 ---@param color integer
 ---@param state boolean
 local function setBundledColor(side, color, state)
-    local current = redstone.getBundledOutput(side)
+    local current = sided_bundle_state[side] or 0
     if state then
         current = colors.combine(current, color)
     else
         current = colors.subtract(current, color)
     end
     redstone.setBundledOutput(side, current)
+    sided_bundle_state[side] = current
 end
 
 ---emits a 1-redstone-tick pulse to a bundled wire
@@ -125,6 +129,9 @@ local function start_powerplant()
     -- enable fuel
     print(" - Enabling fuel")
     setBundledColor(BUNDLE, FUEL_SHUTOFF, false)
+
+    print(" - sleeping 30 seconds to allow visual inspection")
+    sleep(30)
 
     -- start motors
     print(" - Starting motor")
