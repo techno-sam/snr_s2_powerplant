@@ -8,7 +8,13 @@ local LOAD_SHUTOFF = colors.red    -- accumulators
 local is_running = true
 local load_failed = false
 
-local accumulators = { peripheral.find("createaddition:modular_accumulator") }
+local function find_accumulators()
+    return { peripheral.find("createaddition:modular_accumulator") }
+end
+
+local accumulators = find_accumulators()
+
+
 
 local function get_stored_energy()
     local energy = 0
@@ -150,7 +156,8 @@ local function step()
 end
 
 while true do
-    print("\n\nRunning checks")
+    print("\n\n==========================\nRunning checks")
+    accumulators = find_accumulators()
     step()
 
     print("\nStored energy: "..get_stored_energy().."/"..get_total_capacity())
