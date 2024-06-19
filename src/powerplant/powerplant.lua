@@ -130,9 +130,6 @@ local function start_powerplant()
     print(" - Enabling fuel")
     setBundledColor(BUNDLE, FUEL_SHUTOFF, false)
 
-    print(" - sleeping 30 seconds to allow visual inspection")
-    sleep(30)
-
     -- start motors
     print(" - Starting motor")
     pulseSide(MOTOR)
