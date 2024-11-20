@@ -1,5 +1,4 @@
 -- To install: `wget run https://raw.githubusercontent.com/techno-sam/snr_s2_powerplant/main/src/powerplant/installer.lua`
--- check if commands are present
 
 local fs_idx = {
     startup = {
