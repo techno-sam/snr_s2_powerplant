@@ -5,6 +5,8 @@ local BUNDLE = "front"             -- side where bundled wire is connected
 local FUEL_SHUTOFF = colors.red    -- steam engine fuel supply
 local LOAD_SHUTOFF = colors.orange -- accumulators
 local FUEL_REMOVAL = colors.lime   -- steam engine fuel drain (power on to drain)
+local MODE_TOGGLE  = colors.blue   -- when powered, manual, otherwise automatic
+local MANUAL_STATE = colors.lightBlue -- powered: on, unpowered: off
 
 -- bundled wire target state
 local sided_bundle_state = {}
@@ -62,6 +64,16 @@ local function setBundledColor(side, color, state)
     end
     redstone.setBundledOutput(side, current)
     sided_bundle_state[side] = current
+end
+
+
+---gets input from a side
+---@param side string
+---@param color integer
+---@return boolean
+local function getBundledColor(side, color)
+    local current = redstone.getBundledInput(side)
+    return colors.test(current, color)
 end
 
 ---emits a 1-redstone-tick pulse to a bundled wire
@@ -154,9 +166,18 @@ local function start_powerplant()
 end
 
 local function step()
+    local manual_mode = getBundledColor(BUNDLE, MODE_TOGGLE)
+
     if load_failed then
         load_failed = false
         shutdown_powerplant()
+    elseif manual_mode then
+        local target_state = getBundledColor(BUNDLE, MANUAL_STATE)
+        if is_running and (not target_state) then
+            shutdown_powerplant()
+        elseif (not is_running) and target_state then
+            start_powerplant()
+        end
     elseif is_running then
         if are_all_above(0.90) then
             shutdown_powerplant()
